@@ -24,13 +24,13 @@ public class LikeService {
     }
 
     public Like create(UUID source, UUID target) {
-        User sourceUser = userService.getUser(source);
-        User targetUser = userService.getUser(target);
+        User sourceUser = userService.getUserById(source);
+        User targetUser = userService.getUserById(target);
         if (sourceUser != null && targetUser != null) {
             Like like = new Like(LocalDateTime.now(), target, sourceUser);
             likeRepository.save(like);
             sourceUser.getLikes().add(like);
-            userService.updateUser(sourceUser, source);
+            userService.updateUser(sourceUser);
             Like first = targetUser.getLikes().stream().filter(l ->
                     l.getTarget().equals(source)
             ).findFirst().orElse(null);
@@ -39,9 +39,6 @@ public class LikeService {
                 newChat.getUsers().add(sourceUser);
                 newChat.getUsers().add(targetUser);
                 chatService.createChat(newChat);
-                //no need. user is being updated in createChat
-//                userService.updateUser(sourceUser, source);
-//                userService.updateUser(targetUser, target);
             }
             return like;
         }

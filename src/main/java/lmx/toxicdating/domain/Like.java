@@ -1,6 +1,7 @@
 package lmx.toxicdating.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -12,6 +13,7 @@ import java.util.UUID;
 @Table(name = "lik")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Like {
     @Id
     @GeneratedValue(generator = "uuid-hibernate-generator")
@@ -25,6 +27,7 @@ public class Like {
 
     @ManyToOne
     @JoinColumn(name = "usr_id", nullable = false)
+    @JsonIgnore
     private User source;
 
     public Like(LocalDateTime localDateTime, UUID target, User source) {

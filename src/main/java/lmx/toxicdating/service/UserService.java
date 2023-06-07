@@ -16,10 +16,11 @@ public class UserService {
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
+    //TODO: replace with SS PaswordEncoder
     public User createUser(User user) {
         user.setHashPassword(
-                user.getHashPassword() //replace with HASH later
+                user.getHashPassword()
+                // Hashing.sha256().hashString(user.getHashPassword(), StandardCharsets.UTF_8).toString()
         );
         return userRepository.save(user);
     }
@@ -29,20 +30,24 @@ public class UserService {
     }
 
 
-    public User getUser(UUID id){
+    public User getUserById(UUID id){
         return userRepository.findById(id).orElse(null);
     }
 
-    public User updateUser(User user, UUID uuid) {
-        User userFromDb = userRepository.findById(uuid).orElse(null);
+    public User getUserByEmail(String email){return userRepository.findByEmail(email);}
+
+    public List<User> getActiveUsers(){return userRepository.findAllByActive(true);}
+
+    public User updateUser(User user) {
+        User userFromDb = userRepository.findById(user.getId()).orElse(null);
         if (userFromDb != null) {
-            BeanUtils.copyProperties(user,userFromDb,"id","creationDate");
+            BeanUtils.copyProperties(user,userFromDb,"id");
             userRepository.save(userFromDb);
         }
         return userFromDb;
     }
 
-    public void deleteMessage(UUID uuid) {
+    public void deleteUser(UUID uuid) {
         userRepository.findById(uuid).ifPresent(userRepository::delete);
     }
 }

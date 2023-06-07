@@ -35,10 +35,10 @@ public class MessageService {
         return messageRepository.findById(id).orElse(null);
     }
 
-    public Message updateMessage(Message message, UUID uuid) {
-        Message messageFromDb = messageRepository.findById(uuid).orElse(null);
+    public Message updateMessage(Message message) {
+        Message messageFromDb = messageRepository.findById(message.getId()).orElse(null);
         if (messageFromDb != null) {
-            BeanUtils.copyProperties(message,messageFromDb,"id");
+            BeanUtils.copyProperties(message,messageFromDb,"id","creationDate");
             messageRepository.save(messageFromDb);
         }
         return messageFromDb;

@@ -11,4 +11,5 @@ import java.util.UUID;
 @Repository
 public interface ChatRepository extends JpaRepository<Chat, UUID> {
     List<Chat> findAllByUsersContaining(User user);
+
 }

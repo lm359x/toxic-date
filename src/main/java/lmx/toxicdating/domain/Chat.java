@@ -1,6 +1,7 @@
 package lmx.toxicdating.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -16,11 +17,12 @@ public class Chat {
     @GenericGenerator(name = "uuid-hibernate-generator", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
-    @OneToMany(mappedBy = "chat")
+    @OneToMany(mappedBy = "chat",cascade=CascadeType.ALL,orphanRemoval = true)
     private List<Message> messages=new ArrayList<>();
 
     @ManyToMany(mappedBy = "chats")
-    private Set<User> users=new HashSet<>();
+    @JsonIgnore
+    private List<User> users=new ArrayList<>();
 
     public UUID getId() {
         return id;
@@ -38,11 +40,11 @@ public class Chat {
         this.messages = messages;
     }
 
-    public Set<User> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<User> users) {
+    public void setUsers(List<User> users) {
         this.users = users;
     }
 
