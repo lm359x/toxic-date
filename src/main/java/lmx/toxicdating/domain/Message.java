@@ -19,14 +19,14 @@ public class Message {
 
     private String text;
     @ManyToOne
-    @JoinColumn(name="usr_id",nullable = false)
+    @JoinColumn(name = "usr_id", nullable = false)
     private User sender;
 
     @ManyToOne
-    @JoinColumn(name="message_id",nullable=false)
+    @JoinColumn(name = "chat_id", nullable = false)
     private Chat chat;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime creationDate;
 
     public UUID getId() {

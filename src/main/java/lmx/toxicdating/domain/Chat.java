@@ -1,14 +1,15 @@
 package lmx.toxicdating.domain;
 
 
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table
+@NoArgsConstructor
 public class Chat {
     @Id
     @GeneratedValue(generator = "uuid-hibernate-generator")
@@ -16,10 +17,10 @@ public class Chat {
     private UUID id;
 
     @OneToMany(mappedBy = "chat")
-    private List<Message> messages;
+    private List<Message> messages=new ArrayList<>();
 
     @ManyToMany(mappedBy = "chats")
-    private List<User> users;
+    private Set<User> users=new HashSet<>();
 
     public UUID getId() {
         return id;
@@ -37,11 +38,12 @@ public class Chat {
         this.messages = messages;
     }
 
-    public List<User> getUsers() {
+    public Set<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(Set<User> users) {
         this.users = users;
     }
+
 }
