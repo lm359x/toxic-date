@@ -1,0 +1,49 @@
+body {
+  margin: 0;
+  font-family: 'Nunito',-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+}
+
+body > #root > div {
+  min-height: 100vh;
+}
+
+#root{
+  height: 100%;
+}
+
+body>div{
+  background: #283905;
+  height: 100%;
+  position: relative;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+.my-font{
+  font-family: 'Nunito',sans-serif;
+}
+
+.nav a{
+  text-decoration: none;
+  color: black;
+}
+
+
+
+.my-font h2{
+  font-weight: 1000;
+  font-style: italic;
+}
+
+.no-decoration:hover{
+  background-color: #C8E44C;
+}

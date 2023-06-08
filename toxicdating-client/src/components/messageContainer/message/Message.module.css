@@ -1,0 +1,19 @@
+.chatMessage{
+    position: relative;
+    max-width: 50%;
+    min-width:20%;
+    text-align: left;
+    border-radius: 30px;
+    color: #ffffff;
+    padding: 0.5em;
+}
+
+.mine{
+    left: 50%;
+    background: #61DE2A;
+}
+
+.others{
+    left: 10px;
+    background: #C8E44C;
+}

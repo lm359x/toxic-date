@@ -1,0 +1,22 @@
+.chatMessageContainer{
+    background: black;
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+    min-height: 60vh;
+    max-height: 90%;
+    justify-content: start;
+
+}
+
+.elem{
+    position: relative;
+    margin-top:10px;
+    margin-bottom: 40px;
+    height: min-content;
+}
+
+.scroll{
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
