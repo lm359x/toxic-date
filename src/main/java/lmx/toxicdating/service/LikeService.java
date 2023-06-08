@@ -27,20 +27,22 @@ public class LikeService {
         User sourceUser = userService.getUserById(source);
         User targetUser = userService.getUserById(target);
         if (sourceUser != null && targetUser != null) {
-            Like like = new Like(LocalDateTime.now(), target, sourceUser);
-            likeRepository.save(like);
-            sourceUser.getLikes().add(like);
-            userService.updateUser(sourceUser);
-            Like first = targetUser.getLikes().stream().filter(l ->
-                    l.getTarget().equals(source)
-            ).findFirst().orElse(null);
-            if(first!=null){
-                Chat newChat = new Chat();
-                newChat.getUsers().add(sourceUser);
-                newChat.getUsers().add(targetUser);
-                chatService.createChat(newChat);
+            if(sourceUser.getLikes().stream().noneMatch(l->l.getTarget().equals(target))) {
+                Like like = new Like(LocalDateTime.now(), target, sourceUser);
+                likeRepository.save(like);
+                sourceUser.getLikes().add(like);
+                userService.updateUser(sourceUser);
+                Like first = targetUser.getLikes().stream().filter(l ->
+                        l.getTarget().equals(source)
+                ).findFirst().orElse(null);
+                if (first != null) {
+                    Chat newChat = new Chat();
+                    newChat.getUsers().add(sourceUser);
+                    newChat.getUsers().add(targetUser);
+                    chatService.createChat(newChat);
+                }
+                return like;
             }
-            return like;
         }
 
         return null;

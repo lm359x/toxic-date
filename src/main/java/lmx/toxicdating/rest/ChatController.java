@@ -1,6 +1,7 @@
 package lmx.toxicdating.rest;
 
 import lmx.toxicdating.domain.Chat;
+import lmx.toxicdating.domain.Message;
 import lmx.toxicdating.domain.User;
 import lmx.toxicdating.domain.dto.UpdateChatDto;
 import lmx.toxicdating.domain.dto.CreateChatDto;
@@ -15,7 +16,8 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.*;
 
 @RestController
-@RequestMapping("/chats")
+@RequestMapping("/v1/chats")
+@CrossOrigin
 public class ChatController {
     private final ChatService chatService;
     private  final UserService userService;
@@ -37,6 +39,23 @@ public class ChatController {
             throw new EntityNotFoundException("Not found chat with id "+id);
         }
         return chat;
+    }
+    @GetMapping("/{id}/participants")
+    public List<User> getParticipants(@PathVariable UUID id){
+        Chat chat = chatService.getChat(id);
+        if(chat==null){
+            throw new EntityNotFoundException("Not found chat with id "+id);
+        }
+        return chat.getUsers();
+    }
+
+    @GetMapping("/filter/{userId}")
+    public List<Chat> getAllByChat(@PathVariable UUID userId){
+        User user = userService.getUserById(userId);
+        if(userId ==null){
+            throw new EntityNotFoundException("No user found with id "+user);
+        }
+        return chatService.getUsersChats(user);
     }
 
     @ResponseStatus(HttpStatus.CREATED)

@@ -14,7 +14,8 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/v1/users")
+@CrossOrigin
 public class UserController {
     private final UserService userService;
 
@@ -67,7 +68,9 @@ public class UserController {
         if(updateUserDto.getBio()!=null){
             userFromDb.setBio(updateUserDto.getBio());
         }
-        userFromDb.setActive(updateUserDto.getActive());
+        if(updateUserDto.getActive()!=null) {
+            userFromDb.setActive(updateUserDto.getActive());
+        }
         return userService.updateUser(userFromDb);
     }
 

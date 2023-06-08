@@ -6,13 +6,11 @@ import lmx.toxicdating.domain.dto.CreateLikeDto;
 import lmx.toxicdating.exception.EntityNotFoundException;
 import lmx.toxicdating.service.LikeService;
 import lmx.toxicdating.service.UserService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/likes")
+@RequestMapping("/v1/likes")
+@CrossOrigin
 public class LikeController {
     private final LikeService likeService;
     private final UserService userService;

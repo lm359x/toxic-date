@@ -19,7 +19,8 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/messages")
+@RequestMapping("/v1/messages")
+@CrossOrigin
 public class MessageController {
     private  final MessageService messageService;
     private final ChatService chatService;
